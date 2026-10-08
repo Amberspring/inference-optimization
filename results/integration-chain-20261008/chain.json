@@ -1,0 +1,142 @@
+{
+  "status": "verified_real_model_rag_gateway_cache",
+  "scope": "Selected integration examples, not answer quality benchmark",
+  "model": "ecommerce-dpo",
+  "finance_model": "Qwen3-8B",
+  "cases": [
+    {
+      "request": {
+        "query": "商城00政策：未拆封商品签收后7天内可退货，退款审核后2个工作日原路退回。客户：未拆封商品怎么退货？",
+        "task": "customer"
+      },
+      "response": {
+        "answer": "未拆封商品签收后7天内可退货，请在7天内联系人工处理。",
+        "usage": {
+          "prompt_tokens": 76,
+          "total_tokens": 98,
+          "completion_tokens": 22,
+          "prompt_tokens_details": null
+        },
+        "finish_reason": "stop",
+        "citations": [],
+        "refused": false,
+        "degraded": false,
+        "backend": "vllm",
+        "cached": false,
+        "coalesced": false,
+        "task": "customer",
+        "request_id": "57df28e55280405c8b3cdb7a2faefae6"
+      },
+      "repeated_response": {
+        "answer": "未拆封商品签收后7天内可退货，请在7天内联系人工处理。",
+        "usage": {
+          "prompt_tokens": 76,
+          "total_tokens": 98,
+          "completion_tokens": 22,
+          "prompt_tokens_details": null
+        },
+        "finish_reason": "stop",
+        "citations": [],
+        "refused": false,
+        "degraded": false,
+        "backend": "vllm",
+        "cached": true,
+        "task": "customer",
+        "request_id": "5c2a1cdf0b414c8591f7d6239ac5eae0"
+      }
+    },
+    {
+      "request": {
+        "query": "GS 2013: in millions for 2013 and 2012, what was average total assets?",
+        "task": "finance",
+        "calculate": true
+      },
+      "response": {
+        "answer": "925031 currency:$",
+        "citations": [
+          {
+            "id": 1,
+            "doc_id": "GS/2013/page_63.pdf",
+            "page": 63,
+            "quote": "$911,507",
+            "row": 2,
+            "column": 1
+          },
+          {
+            "id": 2,
+            "doc_id": "GS/2013/page_63.pdf",
+            "page": 63,
+            "quote": "$938,555",
+            "row": 2,
+            "column": 2
+          }
+        ],
+        "refused": false,
+        "degraded": false,
+        "backend": "evidence_calculator",
+        "value": "925031",
+        "unit": "currency:$",
+        "usage": {
+          "prompt_tokens": 824,
+          "total_tokens": 879,
+          "completion_tokens": 55,
+          "prompt_tokens_details": null
+        },
+        "cached": false,
+        "coalesced": false,
+        "task": "finance",
+        "request_id": "39a90e6abd6544c1b62675548d174aab"
+      },
+      "repeated_response": {
+        "answer": "925031 currency:$",
+        "citations": [
+          {
+            "id": 1,
+            "doc_id": "GS/2013/page_63.pdf",
+            "page": 63,
+            "quote": "$911,507",
+            "row": 2,
+            "column": 1
+          },
+          {
+            "id": 2,
+            "doc_id": "GS/2013/page_63.pdf",
+            "page": 63,
+            "quote": "$938,555",
+            "row": 2,
+            "column": 2
+          }
+        ],
+        "refused": false,
+        "degraded": false,
+        "backend": "evidence_calculator",
+        "value": "925031",
+        "unit": "currency:$",
+        "usage": {
+          "prompt_tokens": 824,
+          "total_tokens": 879,
+          "completion_tokens": 55,
+          "prompt_tokens_details": null
+        },
+        "cached": true,
+        "task": "finance",
+        "request_id": "03888d9f39c04b6eb1ff6e5e37ce0f10"
+      }
+    }
+  ],
+  "health": [
+    {
+      "status": "ok",
+      "ready": true,
+      "backend": "tfidf",
+      "corpus": "FinQA public transcriptions",
+      "documents": 131
+    },
+    {
+      "status": "ok",
+      "backend": "vllm",
+      "version": "verification-20261008",
+      "health_scope": "gateway_liveness"
+    }
+  ]
+}

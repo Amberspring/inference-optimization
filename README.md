@@ -106,3 +106,17 @@ KV cache 估算脚本使用 GQA 的 KV heads：2 × layers × kv_heads × head_d
 src/gateway/service.py：网关；scripts/：压测、演练、部署、量化与显存采集；tests/：缓存、并发、超时、熔断、引用、限流及兜底；results/：真实本机记录。说明见 [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)、[docs/BADCASES.md](docs/BADCASES.md) 和 [docs/GITHUB.md](docs/GITHUB.md)。
 
 原生压测：`benchmark_vllm.py` 覆盖 1–32 并发，`--prefix-len 128` 用于共享前缀工作负载；请给每种服务配置设置不同 `--run-id` 并保存实际服务启动命令。FP16 服务默认 `--dtype half`。真实 Redis 基准：`benchmark_redis.py`，连接失败不会产生伪性能结果。
+
+## 2026-10-08 真实网关闭环
+
+`scripts/verify_chain.py` 在回环地址启动项目二 RAG 和统一网关，连接实际 vLLM：客服使用 ecommerce-dpo，财报通过 `FINANCE_MODEL=Qwen3-8B` 使用基础模型，避免将电商适配器混用于财务规划。`calculate=true` 的财报请求转交 BM25/证据校验/Decimal，并直接返回数值、单位与引用；不再让生成模型改写计算结果。缓存键包含计算模式和财报模型，相同请求第二次命中缓存。
+
+真实请求、响应和指标保存在 `results/integration-chain-20261008/`。财报演示选用已知成功的 GS 平均资产例子（925031），仅证明链路连通，不能替代项目二 100 题、准确率 2% 的质量评测；客服示例同样是合成规则题。脚本的本机服务会在结束时退出。
+
+## 2026-10-08 独立 GPU 压测
+
+相同 RTX 4080 SUPER 32GB、Qwen3-8B FP16、vLLM 0.11.0，前缀缓存关闭、max_num_seqs=16、chunked prefill=2048。名义输入 128/512/2048 × 并发 1/4/8/16/32、输出预算 128、seed=42，共 15 组；另探索短输入、64-token 输出预算的并发 8/16/4 三组。18 组各 100 请求均成功，逐请求记录、远端哈希、启动参数与日志保存于 `results/vllm-capacity-20261008/` 和 `results/gpu-provenance-20261008/`。
+
+预设演示 SLO：P95 TTFT≤200ms、P95 E2E≤2000ms、错误率≤1%。128-token 输出预算的 15 组全部未达标；短输入、64-token 输出预算、并发 4 为 2.429 请求/秒、150.80 输出 token/秒、P95 TTFT 112.38ms、P95 E2E 1668.17ms，观测满足 SLO。并发 8/16 的短输出 TTFT 为 208.61/364.37ms，仍未达标，没有调整阈值。
+
+降低输出预算减少可返回内容，不能称为等价答案加速。EOS 与重新分词使实际 token 数不同于名义预算，原始数组均保留；短时闭环随机负载未证明最大可持续生产容量，也不能与 10 月 6 日不同配置的小样本结果直接相减宣称加速。

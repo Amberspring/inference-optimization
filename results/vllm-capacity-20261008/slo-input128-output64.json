@@ -1,0 +1,83 @@
+{
+  "status": "analyzed_existing_measurements",
+  "slo": {
+    "p95_ttft_ms": 200,
+    "p95_e2e_ms": 2000,
+    "error_rate": 0.01
+  },
+  "best_observed": {
+    "file": "fp16-input128-output64-c4.json",
+    "sha256": "1ae890ad56c089045bc4ff6ff2be06f767e39913ca6dd9d7d55244d4a1fe7cf1",
+    "date": "20261008-214416",
+    "concurrency": 4,
+    "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+    "requests": 100,
+    "duration_seconds": 41.16127136349678,
+    "input_tokens": 12761,
+    "output_tokens": 6207,
+    "p95_ttft_ms": 112.37639300525188,
+    "p95_e2e_ms": 1668.1714890524745,
+    "rps": 2.4294682036639763,
+    "error_rate": 0.0,
+    "slo_pass": true
+  },
+  "rows": [
+    {
+      "file": "fp16-input128-output64-c16.json",
+      "sha256": "c057427cc6e7e74b82e2667afc8b11e68f708cbb3098e876b75e56c60c84d3d4",
+      "date": "20261008-214042",
+      "concurrency": 16,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 13.157323520630598,
+      "input_tokens": 12761,
+      "output_tokens": 6207,
+      "p95_ttft_ms": 364.37398828566074,
+      "p95_e2e_ms": 1993.348996527493,
+      "rps": 7.600329948807647,
+      "error_rate": 0.0,
+      "slo_pass": false
+    },
+    {
+      "file": "fp16-input128-output64-c8.json",
+      "sha256": "0d9d8ba2969d8521c78b023a3a42c9438737701ca659e1dcea9298d035f73ab2",
+      "date": "20261008-214019",
+      "concurrency": 8,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 22.547363620251417,
+      "input_tokens": 12761,
+      "output_tokens": 6207,
+      "p95_ttft_ms": 208.61308444291353,
+      "p95_e2e_ms": 1787.3986385762691,
+      "rps": 4.435108320610166,
+      "error_rate": 0.0,
+      "slo_pass": false
+    },
+    {
+      "file": "fp16-input128-output64-c4.json",
+      "sha256": "1ae890ad56c089045bc4ff6ff2be06f767e39913ca6dd9d7d55244d4a1fe7cf1",
+      "date": "20261008-214416",
+      "concurrency": 4,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 41.16127136349678,
+      "input_tokens": 12761,
+      "output_tokens": 6207,
+      "p95_ttft_ms": 112.37639300525188,
+      "p95_e2e_ms": 1668.1714890524745,
+      "rps": 2.4294682036639763,
+      "error_rate": 0.0,
+      "slo_pass": true
+    }
+  ],
+  "limitations": "Only compare files with matching workload and server configuration. Closed-loop short runs do not establish maximum sustainable throughput; repeat longer open-loop tests before capacity claims.",
+  "workload": {
+    "nominal_input_tokens": 128,
+    "output_budget_tokens": 64,
+    "prefix_cache": false,
+    "seed": 42,
+    "max_num_seqs": 16,
+    "scope": "Exploratory output-budget/concurrency search after baseline; not equal-answer acceleration or sustainable capacity"
+  }
+}
