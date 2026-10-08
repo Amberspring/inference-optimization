@@ -1,0 +1,232 @@
+{
+  "status": "measured",
+  "scope": "Windows CPU gateway; mock model sleeps 20ms; no GPU or model throughput claim",
+  "admission_config": {
+    "rate": 10000,
+    "burst": 10000,
+    "concurrency": 8,
+    "deadline_seconds": 2
+  },
+  "runs": [
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "unique",
+      "concurrency": 1,
+      "requests": 100,
+      "elapsed_seconds": 3.2540609999996377,
+      "successful_qps": 30.730831413428064,
+      "p50_ms": 31.20909999961441,
+      "p95_ms": 45.54250000001048,
+      "p99_ms": 46.26250000001164,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 0,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "hot",
+      "concurrency": 1,
+      "requests": 100,
+      "elapsed_seconds": 0.8502052999992884,
+      "successful_qps": 117.61865046016968,
+      "p50_ms": 8.163099999364931,
+      "p95_ms": 9.317299999565876,
+      "p99_ms": 10.509599999750208,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 99,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "unique",
+      "concurrency": 4,
+      "requests": 100,
+      "elapsed_seconds": 0.989431500000137,
+      "successful_qps": 101.06813862302357,
+      "p50_ms": 33.83919999942009,
+      "p95_ms": 56.73190000015893,
+      "p99_ms": 64.36910000047646,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 0,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "hot",
+      "concurrency": 4,
+      "requests": 100,
+      "elapsed_seconds": 0.8771054999997432,
+      "successful_qps": 114.01137035399879,
+      "p50_ms": 29.980799999975716,
+      "p95_ms": 61.92000000010012,
+      "p99_ms": 75.08190000044124,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 99,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "unique",
+      "concurrency": 8,
+      "requests": 100,
+      "elapsed_seconds": 1.2107458000000406,
+      "successful_qps": 82.59372033336531,
+      "p50_ms": 79.47489999969548,
+      "p95_ms": 155.22430000055465,
+      "p99_ms": 173.87520000011136,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 0,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "hot",
+      "concurrency": 8,
+      "requests": 100,
+      "elapsed_seconds": 1.1635319000006348,
+      "successful_qps": 85.94521559739397,
+      "p50_ms": 74.69209999999293,
+      "p95_ms": 117.83000000013999,
+      "p99_ms": 134.60370000029798,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 99,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "unique",
+      "concurrency": 16,
+      "requests": 100,
+      "elapsed_seconds": 1.7931263999998919,
+      "successful_qps": 55.7685169322174,
+      "p50_ms": 192.7085999996052,
+      "p95_ms": 544.4926999998643,
+      "p99_ms": 1019.4118999997954,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 0,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "hot",
+      "concurrency": 16,
+      "requests": 100,
+      "elapsed_seconds": 1.6552587000005587,
+      "successful_qps": 60.41351723447594,
+      "p50_ms": 187.3447000007218,
+      "p95_ms": 596.4186999999583,
+      "p99_ms": 989.3718000002991,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 99,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "unique",
+      "concurrency": 32,
+      "requests": 100,
+      "elapsed_seconds": 2.014049800000066,
+      "successful_qps": 49.65120524824992,
+      "p50_ms": 439.1566000003877,
+      "p95_ms": 1298.285200000464,
+      "p99_ms": 1593.1740999994872,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 0,
+      "output_tokens_per_second": null
+    },
+    {
+      "status": "measured",
+      "hardware": "Windows-11-10.0.26200-SP0",
+      "server": {
+        "status": "ok",
+        "backend": "mock",
+        "version": "fixture-v1",
+        "health_scope": "gateway_liveness"
+      },
+      "scope": "gateway_mock_cpu",
+      "workload": "hot",
+      "concurrency": 32,
+      "requests": 100,
+      "elapsed_seconds": 1.5510998999998264,
+      "successful_qps": 64.47038001872812,
+      "p50_ms": 334.9089000003005,
+      "p95_ms": 1076.8967000003613,
+      "p99_ms": 1417.51480000039,
+      "error_or_degraded_rate": 0.0,
+      "cache_hits": 99,
+      "output_tokens_per_second": null
+    }
+  ]
+}

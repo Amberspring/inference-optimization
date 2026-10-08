@@ -1,0 +1,81 @@
+{
+  "status": "measured",
+  "scope": "real_trained_random_tiny_qwen3_CPU_HTTP_integration_not_8B_quality",
+  "model_health": {
+    "status": "ok",
+    "model": "random_tiny_qwen3_trained_cpu",
+    "scope": "integration_only_not_customer_quality"
+  },
+  "direct_model": {
+    "id": "cpu-e95c8a467dbf419992cf4e9ee50c2bff",
+    "object": "chat.completion",
+    "created": 1791084820,
+    "model": "tiny-qwen3",
+    "scope": "random_tiny_qwen3_cpu_integration_only",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "order policy"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1,
+      "completion_tokens": 3,
+      "total_tokens": 4
+    }
+  },
+  "gateway_customer": {
+    "answer": "order policy",
+    "usage": {
+      "prompt_tokens": 1,
+      "completion_tokens": 3,
+      "total_tokens": 4
+    },
+    "finish_reason": "stop",
+    "citations": [],
+    "refused": false,
+    "degraded": false,
+    "backend": "openai",
+    "cached": false,
+    "coalesced": false,
+    "task": "customer",
+    "request_id": "9c427f8671964de78a1e91cc8e963f78"
+  },
+  "gateway_finance": {
+    "answer": "星河科技财务指标\n指标 | 2024年 | 2025年\n营业收入（亿元） | 90 | 100\n毛利率 | 20% | 22%\n净利润（亿元） | 8 | 10 [1]\n星河科技年度报告：本报告所有公司与数据均为虚构教学样例。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n星河科技2025年营业收入为100亿元，同比增长10%。主营业务持续增长。本报告为虚构教学数据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表 [2]",
+    "citations": [
+      {
+        "id": 1,
+        "doc_id": "synthetic-0",
+        "page": 2,
+        "chunk_id": "074e8c62ed51c52e",
+        "quote": "星河科技财务指标\n指标 | 2024年 | 2025年\n营业收入（亿元） | 90 | 100\n毛利率 | 20% | 22%\n净利润（亿元） | 8 | 10",
+        "bbox": null
+      },
+      {
+        "id": 2,
+        "doc_id": "synthetic-0",
+        "page": 1,
+        "chunk_id": "dbbc629e8cdcf056",
+        "quote": "星河科技年度报告：本报告所有公司与数据均为虚构教学样例。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n行业背景：需求变化受到产品周期、研发投入和供应链效率影响。此段提供长文档干扰材料，不构成业绩预测。\n星河科技2025年营业收入为100亿元，同比增长10%。主营业务持续增长。本报告为虚构教学数据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表格阅读，不能将单项数据当作投资决策依据。\n经营讨论：业务情况需要结合各章节和财务表",
+        "bbox": null
+      }
+    ],
+    "refused": false,
+    "degraded": true,
+    "backend": "extractive_fallback",
+    "usage": {
+      "prompt_tokens": 2,
+      "completion_tokens": 5,
+      "total_tokens": 7
+    },
+    "cached": false,
+    "coalesced": false,
+    "task": "finance",
+    "request_id": "971c7036169642cb952145449e06f30d"
+  }
+}

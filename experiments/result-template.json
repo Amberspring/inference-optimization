@@ -1,0 +1,9 @@
+{
+  "status": "not_run",
+  "model": null,
+  "dataset_sha256": null,
+  "seed": 42,
+  "hardware": null,
+  "metrics": null,
+  "raw_result_path": null
+}

@@ -1,0 +1,2 @@
+# Separate Linux CUDA quantization environment. Source API checked; not executed here.
+llmcompressor==0.13.0

@@ -1,0 +1,79 @@
+{
+  "status": "measured",
+  "date": "2026-10-06",
+  "hardware": "NVIDIA GeForce RTX 4080 SUPER 32GB",
+  "software": {
+    "vllm": "0.11.0",
+    "torch": "2.8.0"
+  },
+  "quick_protocol": {
+    "input_tokens": 128,
+    "target_output_tokens": 64,
+    "requests": 20,
+    "note": "Actual generated token total was 1218; ignore_eos was false."
+  },
+  "concurrency_rows": [
+    {
+      "file": "fp16-input128-c1.json",
+      "concurrency": 1,
+      "request_throughput_rps": 0.6670280722996196,
+      "output_throughput_tps": 40.622009603046834,
+      "total_token_throughput_tps": 125.33457478509852,
+      "p95_ttft_ms": 44.515439588576555,
+      "p95_e2el_ms": 1579.2825307697058
+    },
+    {
+      "file": "fp16-input128-c16.json",
+      "concurrency": 16,
+      "request_throughput_rps": 5.850496532411136,
+      "output_throughput_tps": 356.2952388238382,
+      "total_token_throughput_tps": 1099.3082984400526,
+      "p95_ttft_ms": 124.00074927136302,
+      "p95_e2el_ms": 1787.4009129591286
+    },
+    {
+      "file": "fp16-input128-c4.json",
+      "concurrency": 4,
+      "request_throughput_rps": 2.430501471235789,
+      "output_throughput_tps": 148.01753959825953,
+      "total_token_throughput_tps": 456.69122644520473,
+      "p95_ttft_ms": 80.19941346719861,
+      "p95_e2el_ms": 1664.907062985003
+    },
+    {
+      "file": "fp16-input128-c8.json",
+      "concurrency": 8,
+      "request_throughput_rps": 3.960946113019559,
+      "output_throughput_tps": 241.22161828289114,
+      "total_token_throughput_tps": 744.2617746363751,
+      "p95_ttft_ms": 87.80750008299947,
+      "p95_e2el_ms": 1706.0538247227669
+    }
+  ],
+  "prefix_protocol": {
+    "input_tokens": 512,
+    "shared_prefix_tokens": 256,
+    "target_output_tokens": 64,
+    "requests": 30,
+    "concurrency": 8
+  },
+  "prefix_cache": {
+    "prefix-off-input512-c8": {
+      "request_throughput_rps": 2.9603260160050517,
+      "output_throughput_tps": 183.2441803907127,
+      "p95_ttft_ms": 884.2858727090058,
+      "p95_e2el_ms": 2725.9642356075346
+    },
+    "prefix-on-input512-c8": {
+      "request_throughput_rps": 3.3451354348590265,
+      "output_throughput_tps": 207.06388341777372,
+      "p95_ttft_ms": 617.8295090794563,
+      "p95_e2el_ms": 2365.743026137352
+    }
+  },
+  "limitations": [
+    "single run per setting",
+    "random-token workload",
+    "not a production capacity claim"
+  ]
+}

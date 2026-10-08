@@ -1,0 +1,3 @@
+# Install in a separate Linux CUDA environment; unverified on this Windows CPU machine.
+vllm==0.11.0
+# Quantization is in a separate environment; see requirements-quantization.txt.

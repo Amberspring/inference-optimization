@@ -1,0 +1,6 @@
+{
+  "status": "measured_cpu_tests",
+  "tests_passed": 12,
+  "static_check": "ruff E9,F63,F7,F82,F401,F841 passed",
+  "gpu_experiments": "not_run"
+}

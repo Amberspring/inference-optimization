@@ -1,0 +1,5 @@
+scheme,model_checkpoint_sha256,calibration_sha256,hardware,weight_bytes,peak_vram_mib,output_tokens_per_second,p95_ms,rubric_pass_rate,status,raw_result_path
+FP16,,,,,,,,,not_run,
+AWQ_W4A16,,,,,,,,,not_run,
+GPTQ_W4A16,,,,,,,,,not_run,
+INT8_W8A8,,,,,,,,,not_run,

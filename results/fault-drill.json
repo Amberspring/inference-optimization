@@ -1,0 +1,27 @@
+{
+  "status": "measured",
+  "scope": "synthetic_fault_injection",
+  "runs": [
+    {
+      "fault": "oom",
+      "injection": "in_process_exception_not_real_GPU_fault",
+      "safe_fallback": true,
+      "recovered": true,
+      "seconds": 0.03482330000042566
+    },
+    {
+      "fault": "timeout",
+      "injection": "in_process_exception_not_real_GPU_fault",
+      "safe_fallback": true,
+      "recovered": true,
+      "seconds": 0.09086320000005799
+    },
+    {
+      "fault": "unavailable",
+      "injection": "in_process_exception_not_real_GPU_fault",
+      "safe_fallback": true,
+      "recovered": true,
+      "seconds": 0.03195830000004207
+    }
+  ]
+}
