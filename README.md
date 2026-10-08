@@ -1,3 +1,7 @@
+## 全链路补充（2026-10-08）
+
+新增真实 vLLM JSON 的 SLO审计、文件 SHA-256 与最佳观测配置筛选。历史短测不能证明最大可持续吞吐，见 [SLO审计](docs/SLO_AUDIT.md)。
+
 ## 原帖路线更新（2026-10-05）
 
 本仓库是当前原帖路线版本；最新配置、执行命令和未完成项见 [docs/ORIGINAL_ROUTE.md](docs/ORIGINAL_ROUTE.md)。2026-10-06 已在 RTX 4080 SUPER 32GB 上完成 Qwen3-8B FP16 vLLM 服务、并发 1/4/8/16 基准及 prefix cache 开关对照；原始 JSON、启动日志和 `nvidia-smi` 记录位于 `results/`。
