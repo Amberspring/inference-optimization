@@ -24,6 +24,7 @@ class Settings:
     model_url: str = "http://127.0.0.1:8000/v1"
     rag_url: str = "http://127.0.0.1:8001"
     model: str = "ecom"
+    finance_model: str = ""
     fallback_url: str = ""
     fallback_model: str = "fallback"
     redis_url: str = ""
@@ -44,6 +45,7 @@ class Settings:
             model_url=os.getenv("MODEL_URL", "http://127.0.0.1:8000/v1"),
             rag_url=os.getenv("RAG_URL", "http://127.0.0.1:8001"),
             model=os.getenv("MODEL", "ecom"),
+            finance_model=os.getenv("FINANCE_MODEL", ""),
             fallback_url=os.getenv("FALLBACK_URL", ""),
             fallback_model=os.getenv("FALLBACK_MODEL", "fallback"),
             redis_url=os.getenv("REDIS_URL", ""),
@@ -129,6 +131,7 @@ class TokenBucket:
 class Ask(BaseModel):
     query: str = Field(min_length=1, max_length=2000)
     task: str = Field(default="auto", pattern="^(auto|customer|finance)$")
+    calculate: bool = False
 
 
 def route(query, task):
@@ -207,13 +210,13 @@ class Engine:
             "finish_reason": choice.get("finish_reason"),
         }
 
-    async def uncached(self, query, task):
+    async def uncached(self, query, task, calculate=False):
         citations = []
         context = None
         if task == "finance":
             response = await self.client.post(
                 self.s.rag_url.rstrip("/") + "/query",
-                json={"query": query, "mode": "hybrid"},
+                json={"query": query, "mode": "bm25" if calculate else "hybrid", "calculate": calculate},
             )
             response.raise_for_status()
             rag = response.json()
@@ -228,6 +231,10 @@ class Engine:
                 }
             citations = rag["citations"]
             context = rag["answer"]
+            if calculate:
+                return {"answer": context, "citations": citations, "refused": False, "degraded": False,
+                        "backend": "evidence_calculator", "value": rag["value"], "unit": rag["unit"],
+                        "usage": (rag.get("model_trace", {}).get("response", {}).get("usage"))}
             if self.s.backend == "mock":
                 # Return exact quoted evidence, rather than fake model-generated financial claims.
                 return {
@@ -249,7 +256,8 @@ class Engine:
                 + context
             )
         output = await self.generate(
-            [{"role": "system", "content": system}, {"role": "user", "content": query}]
+            [{"role": "system", "content": system}, {"role": "user", "content": query}],
+            model=self.s.finance_model if task == "finance" and self.s.finance_model else None,
         )
         if context:
             # Exact quotation is deliberately conservative. A valid [1] marker alone cannot prove factual support.
@@ -280,12 +288,12 @@ class Engine:
             "backend": self.s.backend,
         }
 
-    async def compute(self, query, task, key):
+    async def compute(self, query, task, key, calculate=False):
         try:
             # Deadline includes admission wait, retrieval, and generation.
             async with asyncio.timeout(self.s.timeout):
                 async with self.sem:
-                    result = await self.uncached(query, task)
+                    result = await self.uncached(query, task, calculate)
         except (TimeoutError, httpx.HTTPError, RuntimeError, KeyError, ValueError):
             self.failures += 1
             if self.failures >= 3:
@@ -320,17 +328,19 @@ class Engine:
             await self.cache.set(key, result)
         return result
 
-    async def ask(self, query, task):
+    async def ask(self, query, task, calculate=False):
         if not self.bucket.allow():
             raise HTTPException(
                 429, "Rate limit exceeded", headers={"Retry-After": "1"}
             )
-        task = route(query, task)
+        if calculate and task == "customer":
+            raise HTTPException(422, "calculate requires finance or auto task")
+        task = "finance" if calculate else route(query, task)
         key = (
             "qa:"
             + hashlib.sha256(
                 json.dumps(
-                    [self.s.version, self.s.model, self.s.backend, task, query.strip()],
+                    [self.s.version, self.s.model, self.s.finance_model, self.s.backend, task, calculate, query.strip()],
                     ensure_ascii=False,
                 ).encode()
             ).hexdigest()
@@ -343,7 +353,7 @@ class Engine:
             self.pending.pop(key)
         owner = key not in self.pending
         if owner:
-            future = asyncio.create_task(self.compute(query, task, key))
+            future = asyncio.create_task(self.compute(query, task, key, calculate))
             self.pending[key] = future
 
             def clear(done):
@@ -404,7 +414,7 @@ def create_app(settings=None, engine=None):
         status = "error"
         identifier = uuid.uuid4().hex
         try:
-            value = await app.state.engine.ask(body.query, body.task)
+            value = await app.state.engine.ask(body.query, body.task, body.calculate)
             status = "degraded" if value["degraded"] else "ok"
             return {**value, "request_id": identifier}
         except HTTPException as e:
