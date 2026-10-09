@@ -1,0 +1,100 @@
+{
+  "status": "analyzed_existing_measurements",
+  "slo": {
+    "p95_ttft_ms": 200,
+    "p95_e2e_ms": 2000,
+    "error_rate": 0.01
+  },
+  "best_observed": null,
+  "rows": [
+    {
+      "file": "fp16-input2048-c1.json",
+      "sha256": "408563338fe117b26573a08186aa3a89c9ed39f71b1065de23ca3c3723c52c40",
+      "date": "20261008-213234",
+      "concurrency": 1,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 324.2945431880653,
+      "input_tokens": 204605,
+      "output_tokens": 11962,
+      "p95_ttft_ms": 349.6640767902135,
+      "p95_e2e_ms": 3463.242983445525,
+      "rps": 0.30836164869418686,
+      "error_rate": 0.0,
+      "slo_pass": false
+    },
+    {
+      "file": "fp16-input2048-c4.json",
+      "sha256": "f3a52efe55346d0c96c34852c90ddc4d6e7c6f7bc92592e6e897a6b4a5161d62",
+      "date": "20261008-213438",
+      "concurrency": 4,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 110.79166961088777,
+      "input_tokens": 204605,
+      "output_tokens": 11936,
+      "p95_ttft_ms": 970.8691580221057,
+      "p95_e2e_ms": 4887.797372229397,
+      "rps": 0.9025949365255594,
+      "error_rate": 0.0,
+      "slo_pass": false
+    },
+    {
+      "file": "fp16-input2048-c8.json",
+      "sha256": "f8316cc73d17a22a18deb73cdf0fe1db38f559abf4a497b99b2690d6e6aeb7a3",
+      "date": "20261008-213603",
+      "concurrency": 8,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 73.29328381642699,
+      "input_tokens": 204605,
+      "output_tokens": 11936,
+      "p95_ttft_ms": 1302.1134082227945,
+      "p95_e2e_ms": 6590.361174941063,
+      "rps": 1.3643814929955058,
+      "error_rate": 0.0,
+      "slo_pass": false
+    },
+    {
+      "file": "fp16-input2048-c16.json",
+      "sha256": "3e05404d8bd71c5b758873510b1e882f61b68e9a48ba71e4c8ab2ef6ca48ba8b",
+      "date": "20261008-213712",
+      "concurrency": 16,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 54.8554864898324,
+      "input_tokens": 204605,
+      "output_tokens": 11936,
+      "p95_ttft_ms": 3868.0944193154564,
+      "p95_e2e_ms": 11408.707989379762,
+      "rps": 1.8229717098313447,
+      "error_rate": 0.0,
+      "slo_pass": false
+    },
+    {
+      "file": "fp16-input2048-c32.json",
+      "sha256": "e700f7cd183fc94aa04c1edb58725f54a4a4adc735f6a897ba9cece6e80cb83d",
+      "date": "20261008-213819",
+      "concurrency": 32,
+      "model": "/root/autodl-tmp/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+      "requests": 100,
+      "duration_seconds": 54.94429075717926,
+      "input_tokens": 204605,
+      "output_tokens": 11936,
+      "p95_ttft_ms": 12761.229638382792,
+      "p95_e2e_ms": 21288.915748149153,
+      "rps": 1.8200253133112572,
+      "error_rate": 0.0,
+      "slo_pass": false
+    }
+  ],
+  "limitations": "Only compare files with matching workload and server configuration. Closed-loop short runs do not establish maximum sustainable throughput; repeat longer open-loop tests before capacity claims.",
+  "workload": {
+    "nominal_input_tokens": 2048,
+    "output_budget_tokens": 128,
+    "prefix_cache": false,
+    "seed": 42,
+    "max_num_seqs": 16,
+    "notes": "Actual input lengths reflect decode/re-tokenize; EOS can shorten output. Closed-loop random tokens; not business quality or sustainable capacity."
+  }
+}
