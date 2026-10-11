@@ -59,7 +59,17 @@ async def stream_one(client, url, model, item, request_id, scheduled, run_starte
                 if choice.get("finish_reason"):
                     row["finish_reason"] = choice["finish_reason"]
         finished = time.perf_counter()
-        row.update(status="ok", ttft_ms=(first - sent) * 1000 if first else None,
+        finish_reason = row.get("finish_reason")
+        if finish_reason == "length":
+            status = "truncated"
+        elif not finish_reason:
+            status = "incomplete"
+        elif finish_reason != "stop":
+            status = "abnormal_finish"
+        else:
+            status = "ok" if output else "empty_output"
+        row.update(status=status,
+                   ttft_ms=(first - sent) * 1000 if first else None,
                    e2e_ms=(finished - sent) * 1000, output="".join(output))
     except (httpx.HTTPError, json.JSONDecodeError) as error:
         row.update(status="error", error=type(error).__name__, e2e_ms=(time.perf_counter() - sent) * 1000)
@@ -68,15 +78,22 @@ async def stream_one(client, url, model, item, request_id, scheduled, run_starte
 
 def summarize(rows, target_rate, duration, elapsed):
     completed = [row for row in rows if row.get("status") == "ok"]
+    all_finished = [row for row in rows if row.get("e2e_ms") is not None]
     ttft = [row["ttft_ms"] for row in completed if row.get("ttft_ms") is not None]
     e2e = [row["e2e_ms"] for row in completed]
+    output_tokens = [(row.get("usage") or {}).get("completion_tokens") for row in completed]
     return {
         "scheduled": len(rows), "completed": len(completed), "target_request_rate": target_rate,
-        "duration_seconds": duration, "elapsed_seconds": elapsed, "achieved_request_rate": len(completed) / elapsed,
+        "duration_seconds": duration, "elapsed_seconds": elapsed, "offered_request_rate": len(rows) / duration,
+        "achieved_request_rate": len(completed) / elapsed,
         "error_rate": 1 - len(completed) / len(rows), "p50_ttft_ms": percentile(ttft, 0.5),
         "p95_ttft_ms": percentile(ttft, 0.95), "p99_ttft_ms": percentile(ttft, 0.99),
         "p50_e2e_ms": percentile(e2e, 0.5), "p95_e2e_ms": percentile(e2e, 0.95),
         "p99_e2e_ms": percentile(e2e, 0.99),
+        "status_counts": {status: sum(row.get("status") == status for row in rows) for status in sorted({row.get("status") for row in rows})},
+        "mean_output_tokens": sum(output_tokens) / len(output_tokens) if output_tokens and all(isinstance(x, int) for x in output_tokens) else None,
+        "p95_output_tokens": percentile(output_tokens, 0.95) if output_tokens and all(isinstance(x, int) for x in output_tokens) else None,
+        "p95_all_finished_e2e_ms": percentile([row["e2e_ms"] for row in all_finished], 0.95),
         "output_tokens_per_second": (sum((row.get("usage") or {}).get("completion_tokens", 0) for row in completed) / elapsed
                                      if all(row.get("usage") for row in completed) and completed else None),
     }
