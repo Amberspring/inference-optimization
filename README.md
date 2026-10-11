@@ -107,6 +107,8 @@ src/gateway/service.py：网关；scripts/：压测、演练、部署、量化�
 
 原生压测：`benchmark_vllm.py` 覆盖 1–32 并发，`--prefix-len 128` 用于共享前缀工作负载；请给每种服务配置设置不同 `--run-id` 并保存实际服务启动命令。FP16 服务默认 `--dtype half`。真实 Redis 基准：`benchmark_redis.py`，连接失败不会产生伪性能结果。
 
+正式业务容量使用 `scripts/benchmark_open_loop.py` 读取电商独立评测的真实 prompt，以恒定到达率发送流式请求，默认每档 3 次、每次 300 秒，并保留逐请求 TTFT、完整响应时间、输出、错误与 token usage。冻结口径见 [业务负载容量协议](docs/BUSINESS_LOAD_PROTOCOL_20261010.md)；未实际运行的到达率不填写结果，随机 token 的历史基准仍只作为硬件压力参考。
+
 ## 2026-10-08 真实网关闭环
 
 `scripts/verify_chain.py` 在回环地址启动项目二 RAG 和统一网关，连接实际 vLLM：客服使用 ecommerce-dpo，财报通过 `FINANCE_MODEL=Qwen3-8B` 使用基础模型，避免将电商适配器混用于财务规划。`calculate=true` 的财报请求转交 BM25/证据校验/Decimal，并直接返回数值、单位与引用；不再让生成模型改写计算结果。缓存键包含计算模式和财报模型，相同请求第二次命中缓存。
